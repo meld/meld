@@ -60,6 +60,9 @@ build_exe_options = {
     "packages": ["gi", "weakref"],
     "include_files": include_files,
     "bin_path_excludes": [""],
+    # The Python build we're using doesn't include this. Sadly, this renders
+    # the Tk fallback almost useless.
+    "excludes": ["tkinter"],
 }
 
 
