@@ -1,0 +1,38 @@
+
+version: 1.0.{build}
+
+branches:
+  only:
+  - appveyor
+
+environment:
+  APPVEYOR_RDP_PASSWORD:
+    secure: fill-me-in
+
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+install:
+  - SET PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+
+  - appveyor-retry pacman -Syu --needed --noconfirm --noprogressbar
+
+  - >
+    appveyor-retry pacman -S -q --noconfirm --noprogressbar
+    mingw64/mingw-w64-x86_64-gobject-introspection
+    mingw64/mingw-w64-x86_64-gsettings-desktop-schemas
+    mingw64/mingw-w64-x86_64-gtk3
+    mingw64/mingw-w64-x86_64-gtksourceview3
+    mingw64/mingw-w64-x86_64-python3
+    mingw64/mingw-w64-x86_64-python3-cx_Freeze
+    mingw64/mingw-w64-x86_64-python3-gobject
+
+  - glib-compile-schemas data
+  - python3 setup_win32.py bdist_msi
+
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+artifacts:
+- path: dist/*.msi
+  name: Meld installer
