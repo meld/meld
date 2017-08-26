@@ -2,15 +2,13 @@
 
 import glob
 import os
-import site
 
 from cx_Freeze import setup, Executable
 
 import meld.build_helpers
 import meld.conf
 
-site_dir = site.getsitepackages()[1]
-include_dll_path = os.path.join(site_dir, "gnome")
+include_dll_path = os.path.abspath('\\msys64\\mingw64\\bin')
 
 missing_dll = [
     'libgtk-3-0.dll',
