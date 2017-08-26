@@ -8,7 +8,7 @@ from cx_Freeze import setup, Executable
 import meld.build_helpers
 import meld.conf
 
-include_dll_path = os.path.abspath('\\msys64\\mingw64\\bin')
+base_path = os.path.abspath('\\msys64\\mingw64')
 
 missing_dll = [
     'libgtk-3-0.dll',
@@ -40,18 +40,19 @@ missing_dll = [
 gtk_libs = [
     'etc/fonts',
     'etc/gtk-3.0/settings.ini',
-    'etc/pango',
     'lib/gdk-pixbuf-2.0',
     'lib/girepository-1.0',
     'share/fontconfig',
-    'share/fonts',
     'share/glib-2.0',
     'share/gtksourceview-3.0',
-    'share/icons',
+    # FIXME: Commented out while nothing works
+    # 'share/icons',
 ]
 
-include_files = [(os.path.join(include_dll_path, path), path) for path in
-                 missing_dll + gtk_libs]
+include_files = (
+    [(os.path.join(base_path, "bin", path), path) for path in missing_dll] +
+    [(os.path.join(base_path, path), path) for path in gtk_libs]
+)
 
 build_exe_options = {
     "compressed": False,
