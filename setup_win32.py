@@ -15,7 +15,6 @@ missing_dll = [
     'libgdk-3-0.dll',
     'libatk-1.0-0.dll',
     'libintl-8.dll',
-    'libzzz.dll',
     'libwinpthread-1.dll',
     'libcairo-gobject-2.dll',
     'libgdk_pixbuf-2.0-0.dll',
@@ -32,14 +31,10 @@ missing_dll = [
     'libgobject-2.0-0.dll',
     'libgirepository-1.0-1.dll',
     'libgtksourceview-3.0-1.dll',
-    'libjasper-1.dll',
     'libjpeg-8.dll',
     'libpng16-16.dll',
-    'libgnutls-26.dll',
-    'libxmlxpat.dll',
     'librsvg-2-2.dll',
     'libharfbuzz-gobject-0.dll',
-    'libwebp-5.dll',
 ]
 
 gtk_libs = [
